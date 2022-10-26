@@ -26,11 +26,11 @@ public class PedidoRequestValidator implements ConstraintValidator<ValidPedido, 
     var result = new AtomicBoolean(false);
     clienteRepository.findById(pedido.getIdCliente())
         .ifPresentOrElse(cliente ->
-        {
-          result.set(true);
-        }, () -> {
-          result.set(false);
-        });
+                result.set(
+                    pedido.getProdutos()
+                        .parallelStream()
+                        .allMatch(p -> produtoRepository.existsById(p.getIdProduto()))),
+            () -> result.set(false));
 
     return result.get();
   }
