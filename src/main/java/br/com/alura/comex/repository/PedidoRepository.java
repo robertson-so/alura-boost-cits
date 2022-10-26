@@ -22,7 +22,17 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
        left join item.produto prod
        where prod.categoria = cat) as montanteVendido
       from Categoria cat
-      order by cat.nome
-      """)
+      """, countQuery = """
+      select count(cat.nome) as categoria,
+      (select sum(item.quantidade)
+       from ItemDePedido item
+       left join item.produto prod
+       where prod.categoria = cat) as quantidadeProdutosVendidos,
+      (select sum(item.precoUnitario * item.quantidade)
+       from ItemDePedido item
+       left join item.produto prod
+       where prod.categoria = cat) as montanteVendido
+      from Categoria cat
+""")
   Page<PedidoCategoriaProjection> findVendidos(Pageable pageable);
 }
