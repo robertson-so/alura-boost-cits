@@ -1,11 +1,13 @@
 package br.com.alura.comex.model;
 
+import br.com.alura.comex.validator.ValidPedido;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@ValidPedido
 public class PedidoRequest {
 
   @NotNull
