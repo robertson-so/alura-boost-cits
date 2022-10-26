@@ -18,6 +18,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
       concat(cli.cidade, '/', cli.estado) as local
       from Cliente cli
       """)
-  Page<ClienteProjection> findAllProjecao(Pageable pageable);
+  Page<ClienteProjection> findAllProjection(Pageable pageable);
 
 }

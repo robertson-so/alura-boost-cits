@@ -3,7 +3,7 @@ package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.ClienteProjection;
-import br.com.alura.comex.repository.ClienteRepository;
+import br.com.alura.comex.service.ClienteService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -21,21 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/clientes")
 public class ClienteController {
 
-  private final ClienteRepository clienteRepository;
+  private final ClienteService clienteService;
 
-  public ClienteController(@Lazy ClienteRepository clienteRepository) {
-    this.clienteRepository = clienteRepository;
+  public ClienteController(@Lazy ClienteService clienteService) {
+    this.clienteService = clienteService;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void add(@Valid @RequestBody Cliente request) {
-    this.clienteRepository.save(request);
+    this.clienteService.add(request);
   }
 
   @GetMapping
-  public Page<ClienteProjection> findAll(@PageableDefault(size = 5, sort = "nome") Pageable pageable) {
-    return this.clienteRepository.findAllProjecao(pageable);
+  public Page<ClienteProjection> findAll(
+      @PageableDefault(size = 5, sort = "nome") Pageable pageable) {
+    return this.clienteService.findAllProjection(pageable);
   }
 
 }

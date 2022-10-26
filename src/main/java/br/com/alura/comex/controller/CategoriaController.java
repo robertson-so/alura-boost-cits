@@ -2,9 +2,8 @@ package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.PedidoCategoriaProjection;
-import br.com.alura.comex.model.StatusCategoria;
-import br.com.alura.comex.repository.CategoriaRepository;
-import br.com.alura.comex.repository.PedidoRepository;
+import br.com.alura.comex.service.CategoriaService;
+import br.com.alura.comex.service.PedidoService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -21,26 +20,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/categorias")
 public class CategoriaController {
 
-  private final CategoriaRepository categoriaRepository;
-  private final PedidoRepository pedidoRepository;
+  private final CategoriaService categoriaService;
+  private final PedidoService pedidoService;
 
   public CategoriaController(
-      @Lazy CategoriaRepository categoriaRepository,
-      @Lazy PedidoRepository pedidoRepository) {
-    this.categoriaRepository = categoriaRepository;
-    this.pedidoRepository = pedidoRepository;
+      @Lazy CategoriaService categoriaService,
+      @Lazy PedidoService pedidoService) {
+    this.categoriaService = categoriaService;
+    this.pedidoService = pedidoService;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void add(@Valid @RequestBody Categoria request) {
-    request.setStatus(StatusCategoria.ATIVA);
-    this.categoriaRepository.save(request);
+    this.categoriaService.add(request);
   }
 
   @GetMapping(value = "/pedidos")
   public Page<PedidoCategoriaProjection> findPedidos(Pageable pageable) {
-    return this.pedidoRepository.findVendidos(pageable);
+    return this.pedidoService.findVendidos(pageable);
   }
 
 }

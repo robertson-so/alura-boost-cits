@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
 import br.com.alura.comex.model.PedidoRequest;
-import br.com.alura.comex.repository.PedidoRepository;
+import br.com.alura.comex.service.PedidoService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/pedidos")
 public class PedidoController {
 
-  private final PedidoRepository pedidoRepository;
+  private final PedidoService pedidoService;
 
-  public PedidoController(@Lazy PedidoRepository pedidoRepository) {
-    this.pedidoRepository = pedidoRepository;
+  public PedidoController(@Lazy PedidoService pedidoService) {
+    this.pedidoService = pedidoService;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void add(@RequestBody @Valid PedidoRequest request) {
-
+    this.pedidoService.add(request);
   }
 }

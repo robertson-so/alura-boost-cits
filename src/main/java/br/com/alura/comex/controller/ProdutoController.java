@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.model.ProdutoResponse;
-import br.com.alura.comex.repository.ProdutoRepository;
+import br.com.alura.comex.model.ProdutoProjection;
+import br.com.alura.comex.service.ProdutoService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/produtos")
 public class ProdutoController {
 
-  private final ProdutoRepository repository;
+  private final ProdutoService produtoService;
 
-  public ProdutoController(@Lazy ProdutoRepository repository) {
-    this.repository = repository;
+  public ProdutoController(@Lazy ProdutoService produtoService) {
+    this.produtoService = produtoService;
   }
 
   @GetMapping
-  public Page<ProdutoResponse> findAll(
+  public Page<ProdutoProjection> findAll(
       @PageableDefault(size = 5, sort = "nome") Pageable pageable) {
-    return this.repository.findAll(pageable).map(ProdutoResponse::new);
+    return this.produtoService.findAllProjection(pageable);
   }
 
 }
