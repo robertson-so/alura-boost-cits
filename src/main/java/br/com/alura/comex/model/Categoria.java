@@ -22,6 +22,7 @@ public class Categoria {
   private Long id;
 
   @Size(min = 2)
+  @Column(unique = true, nullable = false)
   private String nome;
 
   @Enumerated(EnumType.STRING)
