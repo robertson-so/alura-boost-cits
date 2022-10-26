@@ -23,7 +23,7 @@ public class Cliente {
   @Size(min = 2)
   private String nome;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @NotEmpty
   @CPF
   private String cpf;
