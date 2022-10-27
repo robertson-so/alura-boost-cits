@@ -1,9 +1,12 @@
 package br.com.alura.comex.service;
 
+import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.model.PedidoCategoriaProjection;
 import br.com.alura.comex.model.PedidoRequest;
 import br.com.alura.comex.model.Produto;
+import br.com.alura.comex.model.TipoDesconto;
 import br.com.alura.comex.repository.PedidoRepository;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.context.annotation.Lazy;
@@ -36,16 +39,21 @@ public class PedidoService {
         .ifPresentOrElse(cliente -> {
           var products = new ArrayList<Produto>();
           var possibleToBuy = request.getProdutos().stream().allMatch(itemRequest -> {
-            var canBuy = new AtomicBoolean(false);
+            var hasStock = new AtomicBoolean(false);
             produtoService.findById(itemRequest.getIdProduto())
                 .ifPresent(produto -> {
-                  canBuy.set(produto.canBuy(itemRequest.getQuantidade()));
+                  hasStock.set(produto.getQuantidadeEstoque() - itemRequest.getQuantidade() > 0);
                   products.add(produto);
                 });
-            return canBuy.get();
+            return hasStock.get();
           });
           if (possibleToBuy) {
-
+            var pedido = new Pedido();
+            pedido.setCliente(cliente);
+            if (pedidoRepository.hasMinimumOrders(cliente, 5L)) {
+              pedido.setTipoDesconto(TipoDesconto.FIDELIDADE);
+              pedido.setDesconto(new BigDecimal("0.05"));
+            }
           }
           throw new RuntimeException("Estoque insuficiente para algum(ns) do(s) produto(s).");
         }, () -> {

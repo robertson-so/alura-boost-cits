@@ -1,5 +1,6 @@
 package br.com.alura.comex.repository;
 
+import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.model.PedidoCategoriaProjection;
 import org.springframework.data.domain.Page;
@@ -35,4 +36,10 @@ public interface PedidoRepository extends CrudRepository<Pedido, Long> {
             from Categoria cat
       """)
   Page<PedidoCategoriaProjection> findVendidos(Pageable pageable);
+
+  @Query(value = """
+      select count(ped.id) > :quantity from Pedido ped
+      where ped.cliente = :cliente
+      """)
+  Boolean hasMinimumOrders(Cliente cliente, Long quantity);
 }
