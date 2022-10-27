@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.model.CategoriaRequest;
 import br.com.alura.comex.model.PedidoCategoriaProjection;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.PedidoService;
@@ -32,7 +32,7 @@ public class CategoriaController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void add(@Valid @RequestBody Categoria request) {
+  public void add(@Valid @RequestBody CategoriaRequest request) {
     this.categoriaService.add(request);
   }
 

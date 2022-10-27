@@ -47,6 +47,7 @@ public class PedidoService {
           if (possibleToBuy) {
 
           }
+          throw new RuntimeException("Estoque insuficiente para algum(ns) do(s) produto(s).");
         }, () -> {
           throw new RuntimeException("Cliente não encontrado.");
         });

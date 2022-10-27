@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.ClienteProjection;
+import br.com.alura.comex.model.ClienteRequest;
 import br.com.alura.comex.service.ClienteService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;
@@ -29,7 +29,7 @@ public class ClienteController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void add(@Valid @RequestBody Cliente request) {
+  public void add(@Valid @RequestBody ClienteRequest request) {
     this.clienteService.add(request);
   }
 

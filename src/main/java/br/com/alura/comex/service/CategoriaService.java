@@ -1,6 +1,7 @@
 package br.com.alura.comex.service;
 
 import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.model.CategoriaRequest;
 import br.com.alura.comex.model.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
 import org.springframework.context.annotation.Lazy;
@@ -15,8 +16,10 @@ public class CategoriaService {
     this.categoriaRepository = categoriaRepository;
   }
 
-  public void add(Categoria request) {
-    request.setStatus(StatusCategoria.ATIVA);
-    this.categoriaRepository.save(request);
+  public void add(CategoriaRequest request) {
+    var categoria = new Categoria();
+    categoria.setNome(request.getNome());
+    categoria.setStatus(StatusCategoria.ATIVA);
+    this.categoriaRepository.save(categoria);
   }
 }
