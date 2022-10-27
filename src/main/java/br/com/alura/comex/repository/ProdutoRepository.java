@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
   @Query(value = """
-      select prod.nome,
+      select prod.id as idProduto,
+      prod.nome,
       prod.precoUnitario as preco,
       prod.descricao,
       prod.quantidadeEstoque,

@@ -36,6 +36,10 @@ public class Produto {
     //
   }
 
+  public boolean canBuy(Integer amount) {
+    return this.quantidadeEstoque - amount > 0;
+  }
+
   public Long getId() {
     return id;
   }

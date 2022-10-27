@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public interface ProdutoProjection {
 
+  Long getIdProduto();
+
   String getNome();
 
   BigDecimal getPreco();
