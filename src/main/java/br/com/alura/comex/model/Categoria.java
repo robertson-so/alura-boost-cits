@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "categorias", uniqueConstraints = {
@@ -24,7 +23,6 @@ public class Categoria {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Size(min = 2)
   @Column(unique = true, nullable = false)
   private String nome;
 

@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "clientes", uniqueConstraints = {
@@ -22,38 +19,28 @@ public class Cliente {
   private Long id;
 
   @Column(nullable = false)
-  @NotEmpty
-  @Size(min = 2)
   private String nome;
 
   @Column(nullable = false, unique = true)
-  @NotEmpty
-  @CPF
   private String cpf;
 
-  @NotEmpty
   private String telefone;
 
   @Column(nullable = false)
-  @NotEmpty
   private String rua;
 
   @Column(nullable = false)
-  @NotEmpty
   private String numero;
 
   private String complemento;
 
   @Column(nullable = false)
-  @NotEmpty
   private String bairro;
 
   @Column(nullable = false)
-  @NotEmpty
   private String cidade;
 
   @Column(nullable = false)
-  @NotEmpty
   private String estado;
 
   public Cliente() {
