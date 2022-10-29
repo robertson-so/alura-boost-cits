@@ -1,8 +1,8 @@
 package br.com.alura.comex.service;
 
-import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.PedidoCategoriaProjection;
+import br.com.alura.comex.controller.domain.PedidoCategoriaProjectionResponse;
 import br.com.alura.comex.controller.domain.PedidoRequest;
+import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.model.TipoDesconto;
 import br.com.alura.comex.repository.PedidoRepository;
@@ -30,8 +30,8 @@ public class PedidoService {
     this.produtoService = produtoService;
   }
 
-  public Page<PedidoCategoriaProjection> findVendidos(Pageable pageable) {
-    return this.pedidoRepository.findVendidos(pageable);
+  public Page<PedidoCategoriaProjectionResponse> findVendidos(Pageable pageable) {
+    return this.pedidoRepository.findVendidos(pageable).map(PedidoCategoriaProjectionResponse::new);
   }
 
   public void add(PedidoRequest request) {
