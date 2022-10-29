@@ -1,8 +1,8 @@
 package br.com.alura.comex.service;
 
-import br.com.alura.comex.model.Cliente;
-import br.com.alura.comex.model.ClienteProjection;
+import br.com.alura.comex.controller.domain.ClienteProjectionResponse;
 import br.com.alura.comex.controller.domain.ClienteRequest;
+import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.repository.ClienteRepository;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ public class ClienteService {
     this.clienteRepository = clienteRepository;
   }
 
-  public void add(ClienteRequest request) {
+  public Long add(ClienteRequest request) {
     var cliente = new Cliente();
     cliente.setNome(request.getNome());
     cliente.setBairro(request.getBairro());
@@ -29,11 +29,13 @@ public class ClienteService {
     cliente.setNumero(request.getNumero());
     cliente.setRua(request.getRua());
     cliente.setTelefone(request.getTelefone());
-    this.clienteRepository.save(cliente);
+    return this.clienteRepository
+        .save(cliente)
+        .getId();
   }
 
-  public Page<ClienteProjection> findAllProjection(Pageable pageable) {
-    return this.clienteRepository.findAllProjection(pageable);
+  public Page<ClienteProjectionResponse> findAllProjection(Pageable pageable) {
+    return this.clienteRepository.findAllProjection(pageable).map(ClienteProjectionResponse::new);
   }
 
   public Optional<Cliente> findById(Long id) {
