@@ -1,9 +1,9 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.controller.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-public class ItemDePedidoRequest {
+public final class ItemDePedidoRequest {
 
   @NotNull
   private Long idProduto;

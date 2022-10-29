@@ -2,7 +2,7 @@ package br.com.alura.comex.service;
 
 import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.model.PedidoCategoriaProjection;
-import br.com.alura.comex.model.PedidoRequest;
+import br.com.alura.comex.controller.domain.PedidoRequest;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.model.TipoDesconto;
 import br.com.alura.comex.repository.PedidoRepository;

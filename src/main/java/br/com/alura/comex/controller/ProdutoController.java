@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.model.ProdutoProjection;
+import br.com.alura.comex.controller.domain.ProdutoProjectionResponse;
 import br.com.alura.comex.service.ProdutoService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -22,9 +22,11 @@ public class ProdutoController {
   }
 
   @GetMapping
-  public Page<ProdutoProjection> findAll(
+  public Page<ProdutoProjectionResponse> findAll(
       @PageableDefault(size = 5, sort = "nome") Pageable pageable) {
-    return this.produtoService.findAllProjection(pageable);
+    return this.produtoService
+        .findAllProjection(pageable)
+        .map(ProdutoProjectionResponse::new);
   }
 
 }

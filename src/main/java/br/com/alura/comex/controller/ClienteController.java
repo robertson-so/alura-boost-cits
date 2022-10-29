@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.model.ClienteProjection;
-import br.com.alura.comex.model.ClienteRequest;
+import br.com.alura.comex.controller.domain.ClienteProjectionResponse;
+import br.com.alura.comex.controller.domain.ClienteRequest;
 import br.com.alura.comex.service.ClienteService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;
@@ -34,9 +34,11 @@ public class ClienteController {
   }
 
   @GetMapping
-  public Page<ClienteProjection> findAll(
+  public Page<ClienteProjectionResponse> findAll(
       @PageableDefault(size = 5, sort = "nome") Pageable pageable) {
-    return this.clienteService.findAllProjection(pageable);
+    return this.clienteService
+        .findAllProjection(pageable)
+        .map(ClienteProjectionResponse::new);
   }
 
 }

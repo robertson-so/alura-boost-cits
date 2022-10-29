@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.CategoriaRequest;
-import br.com.alura.comex.model.PedidoCategoriaProjection;
+import br.com.alura.comex.controller.domain.CategoriaRequest;
+import br.com.alura.comex.controller.domain.PedidoCategoriaProjectionResponse;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.PedidoService;
 import javax.validation.Valid;
@@ -37,8 +37,10 @@ public class CategoriaController {
   }
 
   @GetMapping(value = "/pedidos")
-  public Page<PedidoCategoriaProjection> findPedidos(Pageable pageable) {
-    return this.pedidoService.findVendidos(pageable);
+  public Page<PedidoCategoriaProjectionResponse> findPedidos(Pageable pageable) {
+    return this.pedidoService
+        .findVendidos(pageable)
+        .map(PedidoCategoriaProjectionResponse::new);
   }
 
 }

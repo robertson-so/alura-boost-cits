@@ -1,6 +1,6 @@
 package br.com.alura.comex.validator;
 
-import br.com.alura.comex.model.PedidoRequest;
+import br.com.alura.comex.controller.domain.PedidoRequest;
 import br.com.alura.comex.service.ClienteService;
 import br.com.alura.comex.service.ProdutoService;
 import java.util.concurrent.atomic.AtomicBoolean;

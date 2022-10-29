@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.PedidoRequest;
+import br.com.alura.comex.controller.domain.PedidoRequest;
 import br.com.alura.comex.service.PedidoService;
 import javax.validation.Valid;
 import org.springframework.context.annotation.Lazy;

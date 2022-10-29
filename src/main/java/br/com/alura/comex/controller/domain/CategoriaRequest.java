@@ -1,9 +1,9 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.controller.domain;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class CategoriaRequest {
+public final class CategoriaRequest {
 
   @NotEmpty
   @Size(min = 2)

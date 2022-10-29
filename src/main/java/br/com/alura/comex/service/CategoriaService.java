@@ -1,7 +1,7 @@
 package br.com.alura.comex.service;
 
+import br.com.alura.comex.controller.domain.CategoriaRequest;
 import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.CategoriaRequest;
 import br.com.alura.comex.model.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
 import org.springframework.context.annotation.Lazy;

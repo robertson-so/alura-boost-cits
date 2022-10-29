@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.controller.domain;
 
 import br.com.alura.comex.validator.ValidPedido;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @ValidPedido
-public class PedidoRequest {
+public final class PedidoRequest {
 
   @NotNull
   private Long idCliente;

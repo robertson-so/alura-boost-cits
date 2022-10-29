@@ -1,10 +1,10 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.controller.domain;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
-public class ClienteRequest {
+public final class ClienteRequest {
 
   @NotEmpty
   @Size(min = 2)
