@@ -23,7 +23,7 @@ public class PedidoController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void add(@RequestBody @Valid PedidoRequest request) {
+  public void add(@Valid @RequestBody PedidoRequest request) {
     this.pedidoService.add(request);
   }
 }

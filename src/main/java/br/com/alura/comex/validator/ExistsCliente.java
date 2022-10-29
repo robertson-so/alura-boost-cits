@@ -8,13 +8,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PedidoRequestValidator.class)
+@Constraint(validatedBy = ExistsClienteValidator.class)
 @Documented
-public @interface ValidPedido {
+public @interface ExistsCliente {
 
-  String message() default "O Pedido não é válido.";
+  String message() default "{pedido.cliente.not.found}";
 
   Class<?>[] groups() default {};
 

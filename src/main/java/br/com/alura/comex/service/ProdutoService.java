@@ -1,9 +1,12 @@
 package br.com.alura.comex.service;
 
+import br.com.alura.comex.controller.domain.ProdutoRequest;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.model.ProdutoProjection;
 import br.com.alura.comex.repository.ProdutoRepository;
 import java.util.Optional;
+import javax.transaction.Transactional;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,13 @@ import org.springframework.stereotype.Service;
 public class ProdutoService {
 
   private final ProdutoRepository produtoRepository;
+  private final CategoriaService categoriaService;
 
-  public ProdutoService(ProdutoRepository produtoRepository) {
+  public ProdutoService(
+      @Lazy ProdutoRepository produtoRepository,
+      @Lazy CategoriaService categoriaService) {
     this.produtoRepository = produtoRepository;
+    this.categoriaService = categoriaService;
   }
 
   public Page<ProdutoProjection> findAllProjection(Pageable pageable) {
@@ -28,4 +35,25 @@ public class ProdutoService {
   public boolean existsById(Long id) {
     return this.produtoRepository.existsById(id);
   }
+
+  @Transactional
+  public Long add(ProdutoRequest request) {
+    var categoria = this.categoriaService.findById(request.getIdCategoria()).orElseThrow();
+    var produto = new Produto();
+    produto.setCategoria(categoria);
+    produto.setNome(request.getNome());
+    produto.setDescricao(request.getDescricao());
+    produto.setPrecoUnitario(request.getPrecoUnitario());
+    produto.setQuantidadeEstoque(request.getQuantidadeEstoque());
+    this.produtoRepository.saveAndFlush(produto);
+    categoria.adicionarProduto(produto);
+    this.categoriaService.save(categoria);
+    return produto.getId();
+  }
+
+  @Transactional
+  public Produto save(Produto produto) {
+    return this.produtoRepository.saveAndFlush(produto);
+  }
+
 }

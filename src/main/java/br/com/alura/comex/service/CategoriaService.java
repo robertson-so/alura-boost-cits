@@ -1,7 +1,6 @@
 package br.com.alura.comex.service;
 
 import br.com.alura.comex.controller.domain.CategoriaRequest;
-import br.com.alura.comex.controller.domain.CategoriaResponse;
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
@@ -27,9 +26,18 @@ public class CategoriaService {
         .getId();
   }
 
-  public Optional<CategoriaResponse> findById(Long id) {
+  public Categoria save(Categoria categoria) {
     return this.categoriaRepository
-        .findById(id)
-        .map(CategoriaResponse::new);
+        .save(categoria);
+  }
+
+  public Optional<Categoria> findById(Long id) {
+    return this.categoriaRepository
+        .findById(id);
+  }
+
+  public Boolean existsById(Long id) {
+    return this.categoriaRepository
+        .existsById(id);
   }
 }

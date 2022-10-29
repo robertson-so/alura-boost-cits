@@ -1,20 +1,19 @@
 package br.com.alura.comex.controller.domain;
 
-import br.com.alura.comex.validator.ValidPedido;
+import br.com.alura.comex.validator.ExistsCliente;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@ValidPedido
 public final class PedidoRequest {
 
-  @NotNull
-  private Long idCliente;
-
   @NotEmpty
-  private List<@Valid ItemDePedidoRequest> produtos = new ArrayList<>();
+  private final List<@Valid ItemDePedidoRequest> produtos = new ArrayList<>();
+  @NotNull
+  @ExistsCliente
+  private Long idCliente;
 
   public PedidoRequest() {
     //
@@ -24,15 +23,8 @@ public final class PedidoRequest {
     return idCliente;
   }
 
-  public void setIdCliente(Long idCliente) {
-    this.idCliente = idCliente;
-  }
-
   public List<ItemDePedidoRequest> getProdutos() {
     return produtos;
   }
 
-  public void setProdutos(List<ItemDePedidoRequest> produtos) {
-    this.produtos = produtos;
-  }
 }

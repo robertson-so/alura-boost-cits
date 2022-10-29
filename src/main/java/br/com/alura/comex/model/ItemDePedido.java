@@ -1,6 +1,7 @@
 package br.com.alura.comex.model;
 
 import java.math.BigDecimal;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,7 +27,7 @@ public class ItemDePedido {
   @Column(nullable = false)
   private Integer quantidade;
 
-  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Pedido pedido;
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY)

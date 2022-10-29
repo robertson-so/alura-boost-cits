@@ -41,4 +41,8 @@ public class ClienteService {
   public Optional<Cliente> findById(Long id) {
     return this.clienteRepository.findById(id);
   }
+
+  public Boolean existsById(Long id) {
+    return this.clienteRepository.existsById(id);
+  }
 }
