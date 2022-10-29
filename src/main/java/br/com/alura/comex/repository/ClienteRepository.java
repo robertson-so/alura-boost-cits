@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
   @Query(value = """
-      select cli.nome,
+      select cli.id,
+      cli.nome,
       cli.cpf,
       cli.telefone,
       concat(cli.cidade, '/', cli.estado) as local
