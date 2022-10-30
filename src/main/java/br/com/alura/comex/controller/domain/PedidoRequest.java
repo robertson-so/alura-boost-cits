@@ -6,10 +6,12 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.UniqueElements;
 
 public final class PedidoRequest {
 
   @NotEmpty
+  @UniqueElements
   private final List<@Valid ItemDePedidoRequest> produtos = new ArrayList<>();
   @NotNull
   @ExistsCliente
