@@ -35,6 +35,8 @@ public class SecurityConfiguration {
         .authorizeHttpRequests()
         .antMatchers(HttpMethod.GET, "/api/categorias", "/api/produtos").permitAll()
         .antMatchers(HttpMethod.POST, "/auth").permitAll()
+        .antMatchers("/swagger-ui.html").permitAll()
+        .antMatchers("/swagger-ui/**").permitAll()
         .anyRequest().authenticated()
         .and().csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
