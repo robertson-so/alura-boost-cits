@@ -1,5 +1,6 @@
 package br.com.alura.comex.service;
 
+import br.com.alura.comex.controller.domain.PedidoRequest;
 import br.com.alura.comex.controller.domain.ProdutoRequest;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.model.ProdutoProjection;
@@ -54,6 +55,14 @@ public class ProdutoService {
   @Transactional
   public Produto save(Produto produto) {
     return this.produtoRepository.saveAndFlush(produto);
+  }
+
+  @Transactional
+  public void updateStock(PedidoRequest request) {
+    request.getProdutos().forEach(itemRequest -> {
+      var product = this.produtoRepository.findById(itemRequest.getIdProduto()).orElseThrow();
+      product.setQuantidadeEstoque(product.getQuantidadeEstoque() - itemRequest.getQuantidade());
+    });
   }
 
 }

@@ -4,12 +4,10 @@ import br.com.alura.comex.controller.domain.PedidoCategoriaProjectionResponse;
 import br.com.alura.comex.controller.domain.PedidoRequest;
 import br.com.alura.comex.model.ItemDePedido;
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.model.TipoDesconto;
 import br.com.alura.comex.model.TipoDescontoItem;
 import br.com.alura.comex.repository.PedidoRepository;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import javax.transaction.Transactional;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -47,12 +45,10 @@ public class PedidoService {
       pedido.setTipoDesconto(TipoDesconto.FIDELIDADE);
       pedido.setDesconto(new BigDecimal("0.05"));
     }
-    var products = new ArrayList<Produto>();
     request.getProdutos().forEach(itemRequest -> {
       var product = this.produtoService
           .findById(itemRequest.getIdProduto())
           .orElseThrow();
-      products.add(product);
       var item = new ItemDePedido();
       item.setPedido(pedido);
       item.setProduto(product);
@@ -65,13 +61,6 @@ public class PedidoService {
       pedido.getItens().add(item);
     });
     this.pedidoRepository.saveAndFlush(pedido);
-    request.getProdutos().forEach(itemRequest -> {
-      var product = products.stream()
-          .filter(p -> p.getId().equals(itemRequest.getIdProduto()))
-          .findFirst()
-          .orElseThrow();
-      product.setQuantidadeEstoque(product.getQuantidadeEstoque() - itemRequest.getQuantidade());
-      this.produtoService.save(product);
-    });
+    this.produtoService.updateStock(request);
   }
 }

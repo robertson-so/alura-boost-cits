@@ -41,5 +41,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
       select count(ped.id) > :quantity from Pedido ped
       where ped.cliente = :cliente
       """)
-  Boolean hasMinimumOrders(Cliente cliente, Long quantity);
+  boolean hasMinimumOrders(Cliente cliente, Long quantity);
 }
