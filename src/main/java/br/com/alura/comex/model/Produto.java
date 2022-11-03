@@ -1,21 +1,29 @@
 package br.com.alura.comex.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "produtos")
-public class Produto {
+public class Produto implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 5735088891802249414L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
   @Column(nullable = false)
@@ -27,9 +35,12 @@ public class Produto {
   private BigDecimal precoUnitario;
 
   @Column(name = "quantidade_estoque", nullable = false)
-  private int quantidadeEstoque;
+  private Integer quantidadeEstoque;
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "categoria_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_produto_categoria"))
   private Categoria categoria;
 
   public Produto() {
@@ -68,11 +79,11 @@ public class Produto {
     this.precoUnitario = precoUnitario;
   }
 
-  public int getQuantidadeEstoque() {
+  public Integer getQuantidadeEstoque() {
     return quantidadeEstoque;
   }
 
-  public void setQuantidadeEstoque(int quantidadeEstoque) {
+  public void setQuantidadeEstoque(Integer quantidadeEstoque) {
     this.quantidadeEstoque = quantidadeEstoque;
   }
 

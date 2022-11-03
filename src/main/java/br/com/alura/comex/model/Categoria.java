@@ -1,5 +1,7 @@
 package br.com.alura.comex.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -17,10 +19,14 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "categorias", uniqueConstraints = {
     @UniqueConstraint(name = "categorias_nome_uq", columnNames = {"nome"})
 })
-public class Categoria {
+public class Categoria implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = -3377882470399881834L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
   @Column(unique = true, nullable = false)

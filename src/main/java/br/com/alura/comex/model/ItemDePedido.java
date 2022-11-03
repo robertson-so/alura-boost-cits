@@ -1,5 +1,7 @@
 package br.com.alura.comex.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -7,18 +9,24 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "itens_pedido")
-public class ItemDePedido {
+public class ItemDePedido implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 7551841639767101713L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
   @Column(name = "preco_unitario", nullable = false)
@@ -28,9 +36,15 @@ public class ItemDePedido {
   private Integer quantidade;
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "pedido_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_itemdepedido_pedido"))
   private Pedido pedido;
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "produto_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_itemdepedido_produto"))
   private Produto produto;
 
   @Column(nullable = false)

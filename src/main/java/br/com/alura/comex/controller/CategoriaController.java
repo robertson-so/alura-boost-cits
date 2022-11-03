@@ -1,11 +1,13 @@
 package br.com.alura.comex.controller;
 
+import br.com.alura.comex.controller.domain.CategoriaListaResponse;
 import br.com.alura.comex.controller.domain.CategoriaRequest;
 import br.com.alura.comex.controller.domain.CategoriaResponse;
 import br.com.alura.comex.controller.domain.PedidoCategoriaProjectionResponse;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.PedidoService;
 import javax.validation.Valid;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,9 +57,16 @@ public class CategoriaController {
   }
 
   @GetMapping(value = "/pedidos")
+  @Cacheable(value = "listaDePedidos")
   public Page<PedidoCategoriaProjectionResponse> findPedidos(Pageable pageable) {
     return this.pedidoService
         .findVendidos(pageable);
+  }
+
+  @GetMapping
+  public Page<CategoriaListaResponse> findAll(Pageable pageable) {
+    return this.categoriaService.findAll(pageable)
+        .map(CategoriaListaResponse::new);
   }
 
 }

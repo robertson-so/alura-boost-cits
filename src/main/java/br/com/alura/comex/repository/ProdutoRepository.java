@@ -13,10 +13,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
   @Query(value = """
       select prod.id as idProduto,
-      prod.nome,
+      prod.nome as nome,
       prod.precoUnitario as preco,
-      prod.descricao,
-      prod.quantidadeEstoque,
+      prod.descricao as descricao,
+      prod.quantidadeEstoque as quantidadeEstoque,
       cat.id as idCategoria,
       cat.nome as nomeCategoria
       from Produto prod

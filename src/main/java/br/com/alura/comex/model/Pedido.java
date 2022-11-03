@@ -1,32 +1,43 @@
 package br.com.alura.comex.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pedidos")
-public class Pedido {
+public class Pedido implements Serializable {
 
+  @Serial
+  private static final long serialVersionUID = 5860099873056901749L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
   private LocalDate data = LocalDate.now();
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "cliente_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
   private Cliente cliente;
 
   private BigDecimal desconto = BigDecimal.ZERO;

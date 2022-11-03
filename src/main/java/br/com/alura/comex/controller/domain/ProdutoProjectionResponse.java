@@ -9,7 +9,7 @@ public final class ProdutoProjectionResponse {
   private final String nome;
   private final BigDecimal preco;
   private final String descricao;
-  private final int quantidadeEstoque;
+  private final Integer quantidadeEstoque;
   private final Long idCategoria;
   private final String nomeCategoria;
 
@@ -39,7 +39,7 @@ public final class ProdutoProjectionResponse {
     return descricao;
   }
 
-  public int getQuantidadeEstoque() {
+  public Integer getQuantidadeEstoque() {
     return quantidadeEstoque;
   }
 

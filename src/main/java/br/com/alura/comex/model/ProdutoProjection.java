@@ -12,7 +12,7 @@ public interface ProdutoProjection {
 
   String getDescricao();
 
-  int getQuantidadeEstoque();
+  Integer getQuantidadeEstoque();
 
   Long getIdCategoria();
 

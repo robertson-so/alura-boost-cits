@@ -6,6 +6,8 @@ import br.com.alura.comex.model.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
 import java.util.Optional;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,10 @@ public class CategoriaService {
   public Boolean existsById(Long id) {
     return this.categoriaRepository
         .existsById(id);
+  }
+
+  public Page<Categoria> findAll(Pageable pageable) {
+    return this.categoriaRepository
+        .findAll(pageable);
   }
 }

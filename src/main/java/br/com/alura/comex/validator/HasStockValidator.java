@@ -24,7 +24,8 @@ public class HasStockValidator implements ConstraintValidator<HasStock, ItemDePe
     var result = new AtomicBoolean(false);
     this.produtoService
         .findById(item.getIdProduto())
-        .ifPresent(produto -> result.set(produto.getQuantidadeEstoque() - item.getQuantidade() > 0));
+        .ifPresent(
+            produto -> result.set(produto.getQuantidadeEstoque() - item.getQuantidade() > 0));
     return result.get();
   }
 }
