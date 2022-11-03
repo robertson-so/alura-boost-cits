@@ -6,6 +6,9 @@ import br.com.alura.comex.controller.domain.CategoriaResponse;
 import br.com.alura.comex.controller.domain.PedidoCategoriaProjectionResponse;
 import br.com.alura.comex.service.CategoriaService;
 import br.com.alura.comex.service.PedidoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import javax.annotation.security.DeclareRoles;
 import javax.validation.Valid;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/api/categorias")
+@DeclareRoles("FUBAR")
 public class CategoriaController {
 
   private final CategoriaService categoriaService;
@@ -35,6 +39,7 @@ public class CategoriaController {
   }
 
   @PostMapping
+  @Operation(summary = "Adicionar categoria", security = @SecurityRequirement(name = "bearerAuth"))
   public ResponseEntity<Void> add(@Valid @RequestBody CategoriaRequest request) {
     var id = this.categoriaService
         .add(request);
