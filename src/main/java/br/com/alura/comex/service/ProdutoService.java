@@ -39,16 +39,7 @@ public class ProdutoService {
 
   @Transactional
   public Long add(ProdutoRequest request) {
-    var categoria = this.categoriaService.findById(request.getIdCategoria()).orElseThrow();
-    var produto = new Produto();
-    produto.setCategoria(categoria);
-    produto.setNome(request.getNome());
-    produto.setDescricao(request.getDescricao());
-    produto.setPrecoUnitario(request.getPrecoUnitario());
-    produto.setQuantidadeEstoque(request.getQuantidadeEstoque());
-    this.produtoRepository.saveAndFlush(produto);
-    categoria.adicionarProduto(produto);
-    this.categoriaService.save(categoria);
+    var produto = save(request);
     return produto.getId();
   }
 
@@ -63,6 +54,21 @@ public class ProdutoService {
       var product = this.produtoRepository.findById(itemRequest.getIdProduto()).orElseThrow();
       product.setQuantidadeEstoque(product.getQuantidadeEstoque() - itemRequest.getQuantidade());
     });
+  }
+
+  @Transactional
+  public Produto save(ProdutoRequest request) {
+    var categoria = this.categoriaService.findById(request.getIdCategoria()).orElseThrow();
+    var produto = new Produto();
+    produto.setCategoria(categoria);
+    produto.setNome(request.getNome());
+    produto.setDescricao(request.getDescricao());
+    produto.setPrecoUnitario(request.getPrecoUnitario());
+    produto.setQuantidadeEstoque(request.getQuantidadeEstoque());
+    this.produtoRepository.saveAndFlush(produto);
+    categoria.adicionarProduto(produto);
+    this.categoriaService.save(categoria);
+    return produto;
   }
 
 }

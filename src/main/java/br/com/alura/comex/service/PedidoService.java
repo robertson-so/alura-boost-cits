@@ -8,6 +8,7 @@ import br.com.alura.comex.model.TipoDesconto;
 import br.com.alura.comex.model.TipoDescontoItem;
 import br.com.alura.comex.repository.PedidoRepository;
 import java.math.BigDecimal;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -62,5 +63,9 @@ public class PedidoService {
     });
     this.pedidoRepository.saveAndFlush(pedido);
     this.produtoService.updateStock(request);
+  }
+
+  public Optional<Pedido> findById(Long id) {
+    return this.pedidoRepository.findById(id);
   }
 }

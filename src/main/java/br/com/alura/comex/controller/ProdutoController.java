@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +49,12 @@ public class ProdutoController {
     return this.produtoService
         .findAllProjection(pageable)
         .map(ProdutoProjectionResponse::new);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Void> save(@PathVariable("id") Long id, @Valid ProdutoRequest request) {
+    this.produtoService.findById(id).orElseThrow();
+    this.produtoService.save(request);
+    return ResponseEntity.noContent().build();
   }
 }
